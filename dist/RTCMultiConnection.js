@@ -5122,6 +5122,8 @@ var RTCMultiConnection = function(roomid, forceOptions) {
                         }
                     }
 
+                    if (localMediaConstraints.isScreen) { stream.isScreen = true; } else{ stream.isScreen = false; }
+
                     if (!stream.isScreen) {
                         stream.isVideo = !!getTracks(stream, 'video').length;
                         stream.isAudio = !stream.isVideo && getTracks(stream, 'audio').length;
