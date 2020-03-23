@@ -183,17 +183,15 @@ connection.onstream = function(event) {
 
     event.mediaElement.removeAttribute('src');
     event.mediaElement.removeAttribute('srcObject');
-    event.mediaElement.muted = true;
-    event.mediaElement.volume = 0;
+    event.mediaElement.muted = false;
+    event.mediaElement.volume = 1;
 
     var video = document.createElement('video');
 
     try {
         video.setAttributeNode(document.createAttribute('autoplay'));
-        video.setAttributeNode(document.createAttribute('playsinline'));
     } catch (e) {
         video.setAttribute('autoplay', true);
-        video.setAttribute('playsinline', false);
     }
 
     if(event.type === 'local') {
@@ -201,15 +199,13 @@ connection.onstream = function(event) {
       try {
           video.setAttributeNode(document.createAttribute('muted'));
       } catch (e) {
-          video.setAttribute('muted', true);
+          video.setAttribute('muted', false);
       }
     }
     video.srcObject = event.stream;
 
     var width = innerWidth - 80;
     var mediaElement = getHTMLMediaElement(video, {
-        title: event.userid,
-        buttons: ['full-screen'],
         width: width,
         showOnMouseEnter: true
     });
