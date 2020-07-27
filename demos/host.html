@@ -48,7 +48,7 @@ screenConnection.onstream = function(event) {
 
     event.mediaElement.removeAttribute('src');
     event.mediaElement.removeAttribute('srcObject');
-    event.mediaElement.muted = false;
+    event.mediaElement.muted = true;
     event.mediaElement.volume = 1;
 
     var video = document.createElement('video');
