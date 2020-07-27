@@ -26,6 +26,16 @@ const roomid = urlParams.get('roomid')
 screenConnection = new RTCMultiConnection();
 audioConnection = new RTCMultiConnection();
 
+videoConstraints = {
+    width: {
+        ideal: 1920
+    },
+    height: {
+        ideal: 1080
+    },
+    frameRate: {min: 24, max: 30}
+};
+
 screenConnection.session = {
      screen: true,
      oneway: true
@@ -33,6 +43,11 @@ screenConnection.session = {
 
 audioConnection.session = {
      audio: true,
+};
+
+screenConnection.mediaConstraints = {
+    video: videoConstraints,
+    audio: true
 };
 
 
@@ -46,10 +61,10 @@ screenConnection.onstream = function(event) {
       existing.parentNode.removeChild(existing);
     }
 
-    event.mediaElement.removeAttribute('src');
-    event.mediaElement.removeAttribute('srcObject');
-    event.mediaElement.muted = true;
-    event.mediaElement.volume = 1;
+    //event.mediaElement.removeAttribute('src');
+    //event.mediaElement.removeAttribute('srcObject');
+    //event.mediaElement.muted = true;
+    //event.mediaElement.volume = 1;
 
     var video = document.createElement('video');
 
@@ -79,7 +94,7 @@ screenConnection.onstream = function(event) {
 
     setTimeout(function() {
         mediaElement.media.play();
-    }, 5000);
+    }, 3000);
 
     mediaElement.id = event.streamid;
 };
