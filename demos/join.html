@@ -50,8 +50,8 @@ screenConnection.mediaConstraints = {
 };
 
 
-screenConnection.open(roomid + '-screen');
-audioConnection.open(roomid + '-audio');
+screenConnection.join(roomid + '-screen');
+audioConnection.join(roomid + '-audio');
 
 screenConnection.videosContainer = document.getElementById('videos-container');
 screenConnection.onstream = function(event) {
