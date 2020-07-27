@@ -115,6 +115,7 @@ connection.socketURL = '/';
 connection.socketMessageEvent = 'screen-sharing-demo';
 
 connection.session = {
+    audio: true,
     screen: true,
     oneway: true
 };
@@ -127,7 +128,7 @@ connection.sdpConstraints.mandatory = {
 
 //Nicks Edits for codecs:
 var bitrates = 512;
-var resolutions = 'HD';
+var resolutions = 'Ultra-HD';
 var videoConstraints = {};
 
 if (resolutions == 'HD') {
