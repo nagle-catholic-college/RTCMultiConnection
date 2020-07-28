@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="/demos/logo.png">
   <link rel="stylesheet" href="/demos/stylesheet.css">
+  <script src="/demos/menu.js"></script>
 </head>
 <body>
 <div id="videos-container" style="margin: 20px 0;"></div>
@@ -36,8 +37,13 @@ videoConstraints = {
 };
 
 screenConnection.session = {
+<<<<<<< HEAD
      screen: false,
      oneway: false
+=======
+     screen: true,
+     oneway: true
+>>>>>>> parent of 339306f... stuff
 };
 
 audioConnection.session = {
@@ -50,8 +56,8 @@ screenConnection.mediaConstraints = {
 };
 
 
-screenConnection.open(roomid + '-screen');
-audioConnection.open(roomid + '-audio');
+screenConnection.openOrJoin(roomid + '-screen');
+audioConnection.openOrJoin(roomid + '-audio');
 
 screenConnection.onNewParticipant = function(participantId, userPreferences) {
     // if OfferToReceiveAudio/OfferToReceiveVideo should be enabled for specific users
