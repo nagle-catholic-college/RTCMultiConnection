@@ -42,38 +42,17 @@ screenConnection.session = {
 };
 
 audioConnection.session = {
-     audio: false,
+     audio: true,
 };
 
 screenConnection.mediaConstraints = {
     video: videoConstraints,
-    audio: false
+    audio: true
 };
 
 
 screenConnection.openOrJoin(roomid + '-screen');
 audioConnection.openOrJoin(roomid + '-audio');
-
-//screenConnection.onNewParticipant = function(participantId, userPreferences) {
-    // if OfferToReceiveAudio/OfferToReceiveVideo should be enabled for specific users
-//    userPreferences.localPeerSdpConstraints.OfferToReceiveAudio = true;
-//    userPreferences.localPeerSdpConstraints.OfferToReceiveVideo = true;
-
-//    userPreferences.dontAttachStream = false; // according to situation
-//   userPreferences.dontGetRemoteStream = false;  // according to situation
-
-    // below line must be included. Above all lines are optional.
-    // if below line is NOT included; "join-request" will be considered rejected.
-//    screenConnection.acceptParticipationRequest(participantId, userPreferences);
-//};
-
-// or do not allow a user twice
-//screenConnection.onNewParticipant = function(participantId, userPreferences) {
-//    var message = participantId + ' is trying to join your room. Confirm to accept his request.';
-//    if( window.confirm(messsage ) ) {
-//        screenConnection.addParticipationRequest(participantId, userPreferences);
-//    }
-//};
 
 screenConnection.videosContainer = document.getElementById('videos-container');
 screenConnection.onstream = function(event) {
