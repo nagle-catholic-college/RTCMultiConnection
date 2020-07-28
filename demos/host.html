@@ -24,7 +24,7 @@ const urlParams = new URLSearchParams(queryString);
 const roomid = urlParams.get('roomid')
 
 screenConnection = new RTCMultiConnection();
-audioConnection = new RTCMultiConnection();
+//audioConnection = new RTCMultiConnection();
 
 videoConstraints = {
     width: {
@@ -38,12 +38,13 @@ videoConstraints = {
 
 screenConnection.session = {
      screen: true,
+     audio: true,
      oneway: true
 };
 
-audioConnection.session = {
-     audio: true,
-};
+//audioConnection.session = {
+//     audio: true,
+//};
 
 screenConnection.mediaConstraints = {
     video: videoConstraints,
@@ -52,7 +53,7 @@ screenConnection.mediaConstraints = {
 
 
 screenConnection.openOrJoin(roomid + '-screen');
-audioConnection.openOrJoin(roomid + '-audio');
+//audioConnection.openOrJoin(roomid + '-audio');
 
 screenConnection.videosContainer = document.getElementById('videos-container');
 screenConnection.onstream = function(event) {
