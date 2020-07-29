@@ -24,7 +24,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const roomid = urlParams.get('roomid')
 
-screenConnection = new RTCMultiConnection();
+connection = new RTCMultiConnection();
 
 videoConstraints = {
     width: {
@@ -37,18 +37,18 @@ videoConstraints = {
 };
 
 
-screenConnection.session = {
+connection.session = {
      screen: true,
      audio: true,
      oneway: true
 };
 
-screenConnection.mediaConstraints = {
+connection.mediaConstraints = {
     video: videoConstraints,
     audio: true
 };
 
-screenConnection.processSdp = function() {
+connection.processSdp = function() {
     // here is how to use it
     var bandwidth = {
         screen: 3000, // 300kbits minimum
@@ -71,10 +71,10 @@ screenConnection.processSdp = function() {
 };
 
 
-screenConnection.openOrJoin(roomid + '-screen');
+connection.openOrJoin(roomid + '-screen');
 
-screenConnection.videosContainer = document.getElementById('videos-container');
-screenConnection.onstream = function(event) {
+connection.videosContainer = document.getElementById('videos-container');
+connection.onstream = function(event) {
     var existing = document.getElementById(event.streamid);
     if(existing && existing.parentNode) {
       existing.parentNode.removeChild(existing);
@@ -96,7 +96,7 @@ screenConnection.onstream = function(event) {
         showOnMouseEnter: true
     });
 
-    screenConnection.videosContainer.appendChild(mediaElement);
+    connection.videosContainer.appendChild(mediaElement);
 
     setTimeout(function() {
         mediaElement.media.play();
