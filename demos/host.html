@@ -33,7 +33,7 @@ videoConstraints = {
     height: {
         ideal: 1050
     },
-    frameRate: {min: 24, max: 30}
+    frameRate: {min: 30, max: 60}
 };
 
 
@@ -52,11 +52,16 @@ connection.processSdp = function(sdp) {
     // This function overrides the minimum qualities
     var bandwidth = {
         screen: 3000, // 3000kbits minimum
-        audio: 500 // 500kbits  minimum
+        audio: 500, // 500kbits  minimum
+        video: 3000,
     };
     var isScreenSharing = !!connection.session.screen;
 
     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, bandwidth, isScreenSharing);
+    sdp = BandwidthHandler.setVideoBitrates(sdp, {
+        min: connection.bandwidth.video,
+        max: connection.bandwidth.video
+    });
     sdp = BandwidthHandler.setOpusAttributes(sdp, {
         'stereo': 1, // to disable stereo (to force mono audio)
         'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
