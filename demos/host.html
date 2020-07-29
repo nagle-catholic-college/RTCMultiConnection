@@ -48,29 +48,34 @@ connection.mediaConstraints = {
     audio: true
 };
 
+var BandwidthHandler = connection.BandwidthHandler;
+connection.bandwidth = {
+    audio: 512,
+    video: 2560,
+    screen: 1024
+};
 connection.processSdp = function(sdp) {
-    // This function overrides the minimum qualities
-    var bandwidth = {
-        screen: 3000, // 3000kbits minimum
-        audio: 500, // 500kbits  minimum
-        video: 3000,
-    };
-    var isScreenSharing = !!connection.session.screen;
-
-    sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, bandwidth, isScreenSharing);
+    sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
     sdp = BandwidthHandler.setVideoBitrates(sdp, {
         min: connection.bandwidth.video,
         max: connection.bandwidth.video
     });
+
+    sdp = BandwidthHandler.setOpusAttributes(sdp);
+
     sdp = BandwidthHandler.setOpusAttributes(sdp, {
-        'stereo': 1, // to disable stereo (to force mono audio)
+        'stereo': 1,
+        //'sprop-stereo': 1,
         'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
         'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
+        //'cbr': 1,
+        //'useinbandfec': 1,
+        // 'usedtx': 1,
         'maxptime': 3
     });
+
     return sdp;
 };
-
 
 connection.openOrJoin(roomid + '-screen');
 
