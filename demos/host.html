@@ -26,16 +26,6 @@ const roomid = urlParams.get('roomid')
 
 connection = new RTCMultiConnection();
 
-videoConstraints = {
-    width: {
-        ideal: 1680
-    },
-    height: {
-        ideal: 1050
-    },
-    frameRate: {min: 30, max: 60}
-};
-
 
 connection.session = {
      screen: true,
@@ -44,21 +34,26 @@ connection.session = {
 };
 
 connection.mediaConstraints = {
-    video: videoConstraints,
-    audio: true
+    audio: true,
+    video: {
+        mandatory: {
+            minFrameRate: 30,
+            maxFrameRate: 30
+        },
+        optional: []
+    }
 };
 
 var BandwidthHandler = connection.BandwidthHandler;
 connection.bandwidth = {
     audio: 512,
     video: 2560,
-    screen: 1024
+    screen: 2560
 };
 connection.processSdp = function(sdp) {
     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
     sdp = BandwidthHandler.setVideoBitrates(sdp, {
-        min: connection.bandwidth.video,
-        max: connection.bandwidth.video
+        min: connection.bandwidth.video
     });
 
     sdp = BandwidthHandler.setOpusAttributes(sdp);
