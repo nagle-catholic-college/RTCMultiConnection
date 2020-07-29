@@ -58,13 +58,9 @@ connection.processSdp = function(sdp) {
 
     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, bandwidth, isScreenSharing);
     sdp = BandwidthHandler.setOpusAttributes(sdp, {
-        'stereo': 0, // to disable stereo (to force mono audio)
-        'sprop-stereo': 1,
-        'maxaveragebitrate': 500 * 1024 * 8, // 500 kbits
-        'maxplaybackrate': 500 * 1024 * 8, // 500 kbits
-        'cbr': 0, // disable cbr
-        'useinbandfec': 1, // use inband fec
-        'usedtx': 1, // use dtx
+        'stereo': 1, // to disable stereo (to force mono audio)
+        'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
+        'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
         'maxptime': 3
     });
     return sdp;
