@@ -82,6 +82,15 @@ connection.onstream = function(event) {
 
     var video = document.createElement('video');
 
+    if(event.type === 'local') {
+      video.volume = 0;
+      try {
+          video.setAttributeNode(document.createAttribute('muted'));
+      } catch (e) {
+          video.setAttribute('muted', false);
+      }
+    }
+
     try {
         video.setAttributeNode(document.createAttribute('autoplay'));
     } catch (e) {
