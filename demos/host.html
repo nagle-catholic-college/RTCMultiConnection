@@ -53,7 +53,8 @@ connection.bandwidth = {
 connection.processSdp = function(sdp) {
     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
     sdp = BandwidthHandler.setVideoBitrates(sdp, {
-        min: connection.bandwidth.video
+        min: connection.bandwidth.video,
+        max: 25600
     });
 
     sdp = BandwidthHandler.setOpusAttributes(sdp);
