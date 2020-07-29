@@ -24,29 +24,23 @@ const urlParams = new URLSearchParams(queryString);
 const roomid = urlParams.get('roomid')
 
 screenConnection = new RTCMultiConnection();
-//audioConnection = new RTCMultiConnection();
 
 videoConstraints = {
     width: {
-        ideal: 1920
+        ideal: 1680
     },
     height: {
-        ideal: 1080
+        ideal: 1050
     },
     frameRate: {min: 24, max: 30}
 };
 
-screenConnection.codecs.video = 'H264';
 
 screenConnection.session = {
      screen: true,
      audio: true,
      oneway: true
 };
-
-//audioConnection.session = {
-//     audio: true,
-//};
 
 screenConnection.mediaConstraints = {
     video: videoConstraints,
@@ -55,7 +49,6 @@ screenConnection.mediaConstraints = {
 
 
 screenConnection.openOrJoin(roomid + '-screen');
-//audioConnection.openOrJoin(roomid + '-audio');
 
 screenConnection.videosContainer = document.getElementById('videos-container');
 screenConnection.onstream = function(event) {
@@ -63,11 +56,6 @@ screenConnection.onstream = function(event) {
     if(existing && existing.parentNode) {
       existing.parentNode.removeChild(existing);
     }
-
-    //event.mediaElement.removeAttribute('src');
-    //event.mediaElement.removeAttribute('srcObject');
-    //event.mediaElement.muted = true;
-    //event.mediaElement.volume = 1;
 
     var video = document.createElement('video');
 
@@ -77,14 +65,6 @@ screenConnection.onstream = function(event) {
         video.setAttribute('autoplay', true);
     }
 
-    if(event.type === 'local') {
-      video.volume = 0;
-      try {
-          video.setAttributeNode(document.createAttribute('muted'));
-      } catch (e) {
-          video.setAttribute('muted', false);
-      }
-    }
     video.srcObject = event.stream;
 
     var width = innerWidth - 80;
@@ -97,7 +77,7 @@ screenConnection.onstream = function(event) {
 
     setTimeout(function() {
         mediaElement.media.play();
-    }, 3000);
+    }, 5000);
 
     mediaElement.id = event.streamid;
 };
