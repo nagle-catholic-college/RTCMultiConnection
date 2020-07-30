@@ -26,6 +26,7 @@ const roomid = urlParams.get('roomid')
 
 connection = new RTCMultiConnection();
 
+connection.iceServers = [];
 
 connection.session = {
      screen: true,
