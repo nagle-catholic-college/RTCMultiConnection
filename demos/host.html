@@ -28,10 +28,10 @@ connection = new RTCMultiConnection();
 
 // https://www.rtcmulticonnection.org/docs/iceServers/
 // use your own TURN-server here!
-//connection.iceServers = [];
-//connection.iceServers.push({
-//    urls: 'stun:10.179.6.106:3478'
-//});
+connection.iceServers = [];
+connection.iceServers.push({
+    urls: 'stun:10.179.6.106:3478'
+});
 
 
 connection.session = {

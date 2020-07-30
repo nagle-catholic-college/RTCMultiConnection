@@ -6,10 +6,7 @@ var IceServersHandler = (function() {
         // pions: 7575
         var iceServers = [{
             'urls': [
-                'stun:stun.l.google.com:19302',
-                'stun:stun1.l.google.com:19302',
-                'stun:stun2.l.google.com:19302',
-                'stun:stun.l.google.com:19302?transport=udp',
+                'stun:10.179.6.106:3478?transport=udp'
             ]
         }];
 

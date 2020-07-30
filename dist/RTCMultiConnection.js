@@ -1484,7 +1484,7 @@ var RTCMultiConnection = function(roomid, forceOptions) {
             var servers = {
                 iceServers: [{
                     //urls: 'stun:stun.l.google.com:19302'
-                    urls: 'stun:10.179.6.106:3478'
+                    urls: 'stun:10.179.6.106:3478?transport=udp'
                 }]
             };
 
