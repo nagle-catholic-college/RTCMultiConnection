@@ -61,15 +61,15 @@ connection.mediaConstraints = {
 
 var BandwidthHandler = connection.BandwidthHandler;
 connection.bandwidth = {
-    audio: 512,
-    video: 4096,
-    screen: 4096
+    audio: 2560,
+    video: 2560,
+    screen: 2560
 };
 connection.processSdp = function(sdp) {
     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
     sdp = BandwidthHandler.setVideoBitrates(sdp, {
         min: connection.bandwidth.video,
-        max: 25600
+        max: 8000
     });
 
     sdp = BandwidthHandler.setOpusAttributes(sdp);
