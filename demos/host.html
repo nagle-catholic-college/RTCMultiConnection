@@ -30,7 +30,6 @@ connection = new RTCMultiConnection();
 // use your own TURN-server here!
 connection.iceServers = [];
 connection.iceServers.push({
-
     urls: [
         'stun:10.179.6.101:3478?transport=udp',
         'stun:10.179.6.102:3478?transport=udp',
@@ -52,41 +51,44 @@ connection.mediaConstraints = {
     audio: true,
     video: {
         mandatory: {
-            minFrameRate: 30,
-            maxFrameRate: 30
+            minWidth: 1920,
+            maxWidth: 1920,
+            minHeight: 1080,
+            maxHeight: 1080,
+            minFrameRate: 23,
         },
         optional: []
     }
 };
 
-var BandwidthHandler = connection.BandwidthHandler;
-connection.bandwidth = {
-    audio: 2560,
-    video: 2560,
-    screen: 2560
-};
-connection.processSdp = function(sdp) {
-    sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
-    sdp = BandwidthHandler.setVideoBitrates(sdp, {
-        min: connection.bandwidth.video,
-        max: 8000
-    });
+// var BandwidthHandler = connection.BandwidthHandler;
+// connection.bandwidth = {
+//     audio: 2560,
+//     video: 1024,
+//     screen: 2560
+// };
+// connection.processSdp = function(sdp) {
+//     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
+//     sdp = BandwidthHandler.setVideoBitrates(sdp, {
+//         min: connection.bandwidth.video,
+//         max: 18000
+//     });
 
-    sdp = BandwidthHandler.setOpusAttributes(sdp);
+//     sdp = BandwidthHandler.setOpusAttributes(sdp);
 
-    sdp = BandwidthHandler.setOpusAttributes(sdp, {
-        'stereo': 1,
-        //'sprop-stereo': 1,
-        'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
-        'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
-        //'cbr': 1,
-        //'useinbandfec': 1,
-        // 'usedtx': 1,
-        'maxptime': 3
-    });
+//     sdp = BandwidthHandler.setOpusAttributes(sdp, {
+//         'stereo': 1,
+//         //'sprop-stereo': 1,
+//         'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
+//         'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
+//         //'cbr': 1,
+//         //'useinbandfec': 1,
+//         // 'usedtx': 1,
+//         'maxptime': 3
+//     });
 
-    return sdp;
-};
+//     return sdp;
+// };
 
 connection.openOrJoin(roomid + '-screen');
 
