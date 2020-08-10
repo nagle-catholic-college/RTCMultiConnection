@@ -62,34 +62,35 @@ connection.mediaConstraints = {
     }
 };
 
-var BandwidthHandler = connection.BandwidthHandler;
-connection.bandwidth = {
-    audio: 1024,
-    video: 1024,
-    screen: 1024
-};
-connection.processSdp = function(sdp) {
-    sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
-    sdp = BandwidthHandler.setVideoBitrates(sdp, {
-        min: connection.bandwidth.video,
-        max: 10000
-    });
 
-    sdp = BandwidthHandler.setOpusAttributes(sdp);
+// var BandwidthHandler = connection.BandwidthHandler;
+// connection.bandwidth = {
+//     audio: 2560,
+//     video: 1024,
+//     screen: 2560
+// };
+// connection.processSdp = function(sdp) {
+//     sdp = BandwidthHandler.setApplicationSpecificBandwidth(sdp, connection.bandwidth, !!connection.session.screen);
+//     sdp = BandwidthHandler.setVideoBitrates(sdp, {
+//         min: connection.bandwidth.video,
+//         max: 18000
+//     });
 
-    sdp = BandwidthHandler.setOpusAttributes(sdp, {
-        'stereo': 1,
-        //'sprop-stereo': 1,
-        'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
-        'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
-        'cbr': 1,
-        'useinbandfec': 1,
-        // 'usedtx': 1,
-        'maxptime': 3
-    });
+//     sdp = BandwidthHandler.setOpusAttributes(sdp);
 
-    return sdp;
-};
+//     sdp = BandwidthHandler.setOpusAttributes(sdp, {
+//         'stereo': 1,
+//         //'sprop-stereo': 1,
+//         'maxaveragebitrate': connection.bandwidth.audio * 1000 * 8,
+//         'maxplaybackrate': connection.bandwidth.audio * 1000 * 8,
+//         //'cbr': 1,
+//         //'useinbandfec': 1,
+//         // 'usedtx': 1,
+//         'maxptime': 3
+//     });
+
+//     return sdp;
+// };
 
 connection.openOrJoin(roomid + '-screen');
 
